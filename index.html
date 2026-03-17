@@ -19,14 +19,14 @@ body {
     width: 100%;
     height: 100%;
     display: none;
-    pointer-events: none; /* 👈 مهم */
+    pointer-events: none;
 }
 
 .page.active {
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: auto; /* 👈 مهم */
+    pointer-events: auto;
 }
 
 /* 🎂 page1 */
@@ -55,26 +55,17 @@ body {
     border-radius: 25px;
     cursor: pointer;
 }
-
-/* 🎉 confetti */
-.confetti {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #ff8fb1;
-    border-radius: 50%;
-    animation: confettiFall linear infinite;
+.page2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 👈 يخليه بالنص */
+    justify-content: center;
+    gap: 25px;
 }
-
-@keyframes confettiFall {
-    from { transform: translateY(-10vh); }
-    to { transform: translateY(100vh); }
-}
-
 /* 💌 envelope */
 .container {
     position: relative;
-     width:600px;
+    width:600px;
     height: auto;
     cursor: pointer;
 }
@@ -103,159 +94,60 @@ body {
 .letter {
     position: absolute;
     font-family: Arial, sans-serif;
-    font: size 16px;
+    font-size: 16px;
     line-height: 1.6;
     width: 90%;
-    height: 380px;
+    min-height:380px;
+    height: auto;
     background: #fffdf8;
     left: 50%;
     top: 100%; 
     transform: translateX(-50%) translateY(100%);
     border-radius: 12px;
-    padding: 30px
+    padding: 30px;
     overflow: visible;
     transition: transform 0.9s ease;
     z-index: 5;
     text-align: center;
 }
 
-/* ✉️ فتح الظرف */
 .open .flap {
     transform: rotateX(180deg);
 }
 
-/* ✨ حركة الرسالة (ثابتة وما تخرب) */
 .open .letter {
- transform: translateX(-50%) translateY(-350px);}
-/* 💗 hearts */
-.float {
-    position: absolute;
-    pointer-events: none;
-    animation: floatUp linear infinite;
-    opacity: 0.7;
+    transform: translateX(-50%) translateY(-400px);
 }
 
-.heart {
-    width: 8px;
-    height: 8px;
-    background: #ff9ab5;
-    transform: rotate(45deg);
-}
-
-.heart::before,
-.heart::after {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #ff9ab5;
-    border-radius: 50%;
-}
-
-.heart::before { top: -4px; }
-.heart::after { left: -4px; }
-
-/* 🎉 confetti */
-.confetti {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: confettiFall linear infinite;
-}
-
-/* animations */
-@keyframes floatUp {
-    from {
-        transform: translateY(0);
-        opacity: 0;
-    }
-    20% { opacity: 0.7; }
-    to {
-        transform: translateY(-120vh);
-        opacity: 0;
-    }
-}
-
-@keyframes confettiFall {
-    from {
-        transform: translateY(0);
-        opacity: 0;
-    }
-    20% { opacity: 0.7; }
-    to {
-        transform: translateY(120vh);
-        opacity: 0;
-    }
-}
-button {
-    position: relative;
-    z-index: 10;
-    cursor: pointer;
-}
-
-.float,
-.confetti {
-    pointer-events: none;
-}
-
-.envelope {
-    position: relative;
-    z-index: 5;
-}
-.page1 {
-    position: relative;
-    z-index: 20;
-}
-
-.birthday button {
-    position: relative;
-    z-index: 50;
-    cursor: pointer;
-}
-
-.confetti,
-.float {
-    pointer-events: none;
-}
-
-body::before {
-    pointer-events: none;
-}
-audio {
-    pointer-events: none;
-}
+/* 📱 موبايل */
 @media (max-width: 600px) {
-    .container {
-        width: 90%;
-        height: auto;
-    }
-
+    .container { width: 90%; }
     .letter {
         width: 95%;
         left: 2.5%;
         padding: 15px;
         font-size: 14px;
     }
-
-    .envelope {
-        height: 220px;
-    }
-
-    .flap {
-        clip-path: polygon(0 0, 100% 0, 50% 70%);
-    }
+    .envelope { height: 220px; }
 }
+
+/* صفحات */
+.page { display: none; }
+.page.active { display: flex; }
 </style>
 </head>
 
 <body>
-<audio id="bgMusic" src="song.mp3.mpeg preload="auto"></audio>
+
+<!-- 🎵 صوت -->
+<audio id="bgMusic" src="song.mp3.mpeg" preload="auto"></audio>
+
 <!-- 🎂 الصفحة الأولى -->
 <div class="page page1 active">
     <div class="birthday">
-        <h1>Happy Birthday 🎂💗</h1>
+        <h1>Happy Birthday Ward 🎂💗</h1>
         <img src="download.jpg">
-        <button onclick="goToLetter()">Open your letter 💌</button>
+        <button onclick="goToLetter()">Open 💌</button>
     </div>
 </div>
 
@@ -264,8 +156,9 @@ audio {
     <div class="container" onclick="toggleEnvelope()">
         <div class="envelope">
             <div class="flap"></div>
+
             <div class="letter">
-                <p contenteditable="true">
+                <p>
                 HAPPY BIRTHDAY MY LOVE!
 
 i made this just to put a smile on your face 
@@ -292,92 +185,63 @@ I love you my baby I wanna make you the happiest person ever, and I hope I do lo
 
 
 And finally, you’re closer to being an adult. I’m proud of you little boy Mwahhhh
+
                 </p>
+
+
             </div>
         </div>
     </div>
+    
+                <button onclick="goToVideo()" style="
+                margin-top: 20px;
+                padding: 12px 25px;
+                border: none;
+                background: #f4a9c3;
+                color: white;
+                border-radius: 20px;
+                cursor: pointer;">
+                Watch something special 💖
+                </button>
 </div>
 
+<!-- 🎥 الصفحة الثالثة -->
+<div class="page page3">
+    <div style="text-align:center; padding:20px;">
+        <video controls style="width:90%; border-radius:12px;">
+            <source src="video.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<!-- 🔊 صوت الظرف -->
 <audio id="openSound" src="https://assets.mixkit.co/sfx/preview/mixkit-envelope-opening-135.mp3"></audio>
 
 <script>
 function toggleEnvelope() {
     document.querySelector('.container').classList.toggle('open');
-
     let audio = document.getElementById("openSound");
     audio.currentTime = 0;
     audio.play().catch(()=>{});
 }
 
-/* 🎉 CONFETTI (page1) */
-function createConfetti() {
-    const total = 25;
-
-    for (let i = 0; i < total; i++) {
-        let c = document.createElement("div");
-        c.className = "confetti";
-
-        c.style.left = Math.random() * 100 + "vw";
-        c.style.top = (-Math.random() * 100) + "vh";
-
-        let size = 6 + Math.random() * 6;
-        c.style.width = size + "px";
-        c.style.height = size + "px";
-
-        const colors = ["#ff8fb1","#ffc2d1","#ffd6e0","#ffb3c6"];
-        c.style.background = colors[Math.floor(Math.random()*colors.length)];
-
-        c.style.filter = `blur(${Math.random() * 1}px)`;
-
-        c.style.animationDuration = (4 + Math.random() * 3) + "s";
-        c.style.animationDelay = (Math.random() * 4) + "s";
-
-        document.querySelector('.page1').appendChild(c);
-        document.getElementById("bgMusic").play();
-    }
-}
-
-/* 💗 HEARTS (page2) */
-function createHearts() {
-    const total = 20;
-
-    for (let i = 0; i < total; i++) {
-        let heart = document.createElement("div");
-        heart.className = "float heart";
-
-        let side = Math.random() > 0.5
-            ? (Math.random() * 15)
-            : (85 + Math.random() * 15);
-
-        heart.style.left = side + "vw";
-        heart.style.bottom = (-Math.random() * 100) + "vh";
-
-        let scale = 0.6 + Math.random() * 0.8;
-        heart.style.transform = `scale(${scale}) rotate(45deg)`;
-
-        heart.style.filter = `blur(${Math.random() * 1.2}px)`;
-
-        heart.style.animationDuration = (6 + Math.random() * 4) + "s";
-        heart.style.animationDelay = (Math.random() * 5) + "s";
-
-        document.querySelector('.page2').appendChild(heart);
-    }
-}
-
-/* تشغيلهم */
-createConfetti();
-createHearts();
 function goToLetter() {
     document.querySelector('.page1').classList.remove('active');
     document.querySelector('.page2').classList.add('active');
-    let music = document.getElementById("bgMusic");
 
-music.currentTime = 0;
-music.play().then(() => {
-    console.log("اشتغل الصوت ✅");
-}).catch((e) => {
-    console.log("المتصفح منع الصوت ❌", e);
-});
+    let music = document.getElementById("bgMusic");
+    music.currentTime = 0;
+    music.play().catch(()=>{});
+}
+
+function goToVideo() {
+
+    let music = document.getElementById("bgMusic");
+    music.pause();
+    music.currentTime = 0;
+
+    document.querySelector('.page2').classList.remove('active');
+    document.querySelector('.page3').classList.add('active');
 }
 </script>
 
